@@ -1,0 +1,16 @@
+{
+  "name": "orangutalk_be",
+  "version": "1.0.0",
+  "description": "<!-- PROJECT SHIELDS -->\r <!--\r *** I'm using markdown \"reference style\" links for readability.\r *** Reference links are enclosed in brackets [ ] instead of parentheses ( ).\r *** See the bottom of this document for the declaration of the reference variables\r *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.\r *** https://www.markdownguide.org/basic-syntax/#reference-style-links\r -->\r [![Contributors][contributors-shield]][contributors-url]\r [![Forks][forks-shield]][forks-url]\r [![Stargazers][stars-shield]][stars-url]\r [![Issues][issues-shield]][issues-url]",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
