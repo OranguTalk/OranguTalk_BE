@@ -1,3 +1,4 @@
 module.exports = (req, res) => {
-  res.send("controller HelloWorld");
+  console.log(req.user);
+  res.send(req.user);
 }
