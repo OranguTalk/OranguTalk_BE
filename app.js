@@ -1,15 +1,28 @@
 const express = require("express");
 const cors = require("cors");
+const passport = require('passport');
+const configurePassport = require('./config/passport');
+require("dotenv").config();
 
 const app = express();
+configurePassport(app);
 
 app.use(express.json());
 app.use(cors({
   origin: "*",
   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-//app에 라우트 파일을 연결해줍니다.
+passport.serializeUser((user, done) => {
+  done(null, user)
+})
+
+passport.deserializeUser((user, done) => {
+  done(null, user)
+})
+
 require("./routers")(app);
 
 const httpServer = require("http").createServer(app);
