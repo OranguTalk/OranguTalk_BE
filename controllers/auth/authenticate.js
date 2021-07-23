@@ -1,8 +1,7 @@
 module.exports = (req, res) => {
-    // Successful authentication, redirect home.
-    res.status(200).json({
-        "id": req.user.id,
-        "username": req.user.username,
-        "profile": req.user.photos[0].value
-    });
+    res.cookie("userid", req.user.id);
+    res.cookie("username", req.user.username);
+    res.cookie("profile", req.user.photos[0].value);
+    res.redirect('http://localhost:3000');
+
 }

@@ -9,9 +9,6 @@ module.exports = () => {
         callbackURL: process.env['callbackURL']
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log("accessToken", accessToken);
-        console.log("refreshToekn", refreshToken);
-        console.log("profile", profile);
         done(null, profile);
     }));
 }
