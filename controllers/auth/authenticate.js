@@ -1,9 +1,15 @@
 const { User } = require('../../models');
+const jwt = require('jsonwebtoken');
 
 module.exports = async (req, res) => {
     const user_id = req.user.id;
     const user_name = req.user.username;
     const profileImage = req.user.photos[0].value;
+    const accessToken = jwt.sign(
+        {'user_id': user_id},
+        process.env.ACCESS_SECRET,
+        {expiresIn: "1H"}
+    )
 
     try {
         const state = await User.findOne({
@@ -14,7 +20,8 @@ module.exports = async (req, res) => {
         res.cookie("userid", user_id);
         res.cookie("username", user_name);
         res.cookie("profile", profileImage);
-
+        res.cookie("accessToken", accessToken);
+        
         if (!state) {
             await User.create({
                 user_id: user_id,
