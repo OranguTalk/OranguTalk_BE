@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const passport = require('passport');
 const configurePassport = require('./config/passport');
+const session = require('express-session');
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 const app = express();
@@ -14,6 +16,12 @@ app.use(cors({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(session({                                              
+  secret:"asdfasffdas",
+  resave:false,
+  saveUninitialized:true                                   
+}));
+app.use(cookieParser());
 
 passport.serializeUser((user, done) => {
   done(null, user)
