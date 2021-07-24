@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
             // 프론트 요청에 따라 true/false, redirect 수정 가능
             res.redirect('http://localhost:3000/guide');
         } else {
-            res.redirect('http://localhost:3000');
+            res.redirect('http://localhost:3000/chatmain');
         }
         
     } catch (err) {
