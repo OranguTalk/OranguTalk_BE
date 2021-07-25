@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       models.Room.hasMany(models.Chat, {
         foreignKey: "room_id"
       });
+      models.Room.hasMany(models.Participant, {
+        foreignKey: "room_id"
+      });
       models.Room.belongsTo(models.User, {
         foreignKey: "user_id"
       })
@@ -21,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   Room.init({
     room_name: DataTypes.STRING,
-    participant: DataTypes.INTEGER,
+    participant: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     profileImage: DataTypes.STRING,
     user_id: DataTypes.INTEGER
   }, {
