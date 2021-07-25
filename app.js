@@ -34,13 +34,13 @@ passport.deserializeUser((user, done) => {
 require("./routers")(app);
 
 const httpServer = require("http").createServer(app);
-// const io = require("socket.io")(httpServer, {
-//   cors: {
-//     origin: "*",
-//     methods: ["GET", "POST"]
-//   }
-// });
-// require("./socketServer")(io);
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+require("./socket")(io);
 
 httpServer.listen(5000, () => {
   console.log(`Ready, URL : http://localhost:5000`);
