@@ -1,7 +1,12 @@
 const { Room, Participant } = require("../../models");
 
 module.exports = async (req, res) => {
-    const participant = await Participant.findAll({user_id: req.authData.dataValues['id']});
+    const participant = await Participant.findAll({
+        where: {
+            user_id: req.authData.dataValues['user_id']
+        }
+    });
+    console.log(participant);
     data = [];
     for (const p of participant) {
         const roomInfo = await Room.findOne({where: {id: p.dataValues['room_id']}});
