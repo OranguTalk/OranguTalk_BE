@@ -6,7 +6,6 @@ module.exports = async (req, res) => {
             user_id: req.authData.dataValues['user_id']
         }
     });
-    console.log(participant);
     data = [];
     for (const p of participant) {
         const roomInfo = await Room.findOne({where: {id: p.dataValues['room_id']}});
