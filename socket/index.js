@@ -11,6 +11,7 @@ module.exports = io => {
                 const participant = params["participant"];
                 const authData = jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 const userData = await User.findOne({where: {user_id: authData.user_id}});
+
                 const newRoom = await Room.create({
                     room_name: roomName,
                     profileImage: userData.profileImage,
