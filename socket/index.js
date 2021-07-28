@@ -16,7 +16,7 @@ module.exports = io => {
                     room_name: roomName,
                     profileImage: userData.profileImage,
                     user_id: authData.user_id,
-                    participant: 1
+                    participant: participant.length
                 });
                 participant.forEach( async (user) => {
                     await Participant.create({
@@ -38,8 +38,8 @@ module.exports = io => {
                 const authData = jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 const roomId = params["room_id"];
 
-                await Participant.destroy({where: {roomId: roomId, user_id: authData.user_id}})
-                await Room.update({participant: Sequelize.literal('participant + 1')}, {where: {roomId: roomId, user_id: authData.user_id}});
+                await Participant.destroy({where: {room_id: roomId, user_id: authData.user_id}})
+                await Room.update({participant: Sequelize.literal('participant - 1')}, {where: {id: roomId, user_id: authData.user_id}});
                 socket.leave(`room${roomId}`)
             } catch (err) {
                 console.log("--------------------------Error occurred in socket-leaveRoom.js--------------------------");
@@ -47,8 +47,12 @@ module.exports = io => {
             }
         });
 
-        socket.on("sendMessage", async (accessToken, roomId, msg) => {
+        socket.on("sendMessage", async (params) => {
             try {
+                const accessToken = params["accessToken"];
+                const roomId = params["room_id"];
+                const msg = params["message"];
+                console.log(msg);
                 const authData = jwt.verify(accessToken, process.env.ACCESS_SECRET);
                 const userData = await User.findOne({where: {user_id: authData.user_id}});
                 const data = { userData: userData, message: msg };
@@ -65,6 +69,7 @@ module.exports = io => {
                 socket.to(`room${roomId}`).emit('sendMessage', data);
             } catch (err) {
                 console.log("--------------------------Error occurred in socket-sendMessage.js--------------------------\n");
+                console.log(err);
             }
         });
     })
