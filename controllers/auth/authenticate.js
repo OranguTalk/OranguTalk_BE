@@ -22,7 +22,6 @@ module.exports = async (req, res) => {
         res.cookie("profile", profileImage);
         res.cookie("accessToken", accessToken);
 
-        
         if (!state) {
             await User.create({
                 user_id: user_id,
