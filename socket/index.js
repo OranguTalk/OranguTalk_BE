@@ -1,4 +1,4 @@
-const { Chat, Room, User, Participant, Sequelize } = require("../models");
+const { Chat, Room, User, Participant, RandomChat, Sequelize } = require("../models");
 const jwt = require("jsonwebtoken");
 require('date-utils');
 
@@ -73,5 +73,18 @@ module.exports = io => {
                 console.log(err);
             }
         });
+
+        socket.on("orang", async (params) => {
+            try {
+                const roomId = params["room_id"];
+                const rand = Math.random() * 100;
+
+                const msg = await RandomChat.findOne({where: {id: rand}});
+                socket.to(`room${roomId}`).emit('orang', msg);
+            } catch (err) {
+                console.log("--------------------------Error occurred in socket-orang.js--------------------------\n");
+                console.log(err);
+            }
+        })
     })
 }
