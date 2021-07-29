@@ -16,7 +16,6 @@ module.exports = async (req, res) => {
             const avatar = await User.findOne({where: {user_id: user_id.dataValues['user_id']}});
             avatars.push(avatar.dataValues['profileImage']);
         }
-        console.log(avatars);
         roomInfo.dataValues.avatars = avatars;
         data.push(await roomInfo.dataValues);
     }
