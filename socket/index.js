@@ -101,13 +101,12 @@ module.exports = (io) => {
       }
     });
 
-    socket.on("orang", async (params) => {
+    socket.on("orang", async () => {
       try {
-        const roomId = params["room_id"];
         const rand = Math.random() * 4;
 
         const msg = await RandomChat.findOne({ where: { id: rand } });
-        socket.to(`room${roomId}`).emit("orang", msg);
+        socket.emit("receiveOrang", msg);
 
         // 심심이 api
         // const headers = {
